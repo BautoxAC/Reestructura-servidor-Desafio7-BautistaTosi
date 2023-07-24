@@ -4,7 +4,9 @@ import passport from 'passport'
 import local from 'passport-local'
 import { createHash, isValidPassword } from '../utils.js'
 import { CartManagerDB } from '../DAO/DB/CartManagerDB.js'
+import config from './env.config.js'
 const LocalStrategy = local.Strategy
+const { clientID, clientSecret, port } = config
 const cartManager = new CartManagerDB()
 // ---------------- GITHUB PASSPORT ----------------
 export function iniPassPortLocalAndGithub () {
@@ -70,9 +72,9 @@ export function iniPassPortLocalAndGithub () {
     'github',
     new GitHubStrategy(
       {
-        clientID: `${process.env.CLIENT_ID}`,
-        clientSecret: `${process.env.CLIENT_SECRET}`,
-        callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
+        clientID,
+        clientSecret,
+        callbackURL: `http://localhost:${port}/api/sessions/githubcallback`
       },
       async (accesToken, _, profile, done) => {
         try {

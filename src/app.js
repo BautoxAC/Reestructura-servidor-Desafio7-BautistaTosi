@@ -1,9 +1,10 @@
 import express from 'express'
+import config from './config/env.config.js'
 import MongoStore from 'connect-mongo'
 import handlebars from 'express-handlebars'
 import session from 'express-session'
 import path from 'path'
-import { cartsRouter } from './routes/carts.router.js'
+import { cartsAPIRouter } from './routes/cartsAPI.router.js'
 import { productViewRouter } from './routes/productsView.router.js'
 import { productsAPIRouter } from './routes/productsAPI.router.js'
 import { productsSocketRouter } from './routes/productsSocketRouter.router.js'
@@ -12,12 +13,10 @@ import { __dirname, connectMongo, connectSocketServer } from './utils.js'
 import { iniPassPortLocalAndGithub } from './config/passport.config.js'
 import { cartViewRouter } from './routes/cartView.router.js'
 import { chatRouter } from './routes/chat.router.js'
-import 'dotenv/config'
 import passport from 'passport'
 import { sessionsRouter } from './routes/sessions.router.js'
-
+const { sessionSecret, port, mongoUrl } = config
 const app = express()
-const port = 8080
 const httpServer = app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
 })
@@ -33,8 +32,8 @@ app.set('view engine', 'handlebars')
 
 app.use(
   session({
-    store: MongoStore.create({ mongoUrl: `${process.env.MONGO_LINK}`, ttl: 7200 }),
-    secret: `${process.env.SESSION_SECRET}`,
+    store: MongoStore.create({ mongoUrl, ttl: 7200 }),
+    secret: `${sessionSecret}`,
     resave: true,
     saveUninitialized: true
   })
@@ -53,7 +52,7 @@ connectMongo()
 
 // Rutes: API REST WITH JSON
 app.use('/api/products', productsAPIRouter)
-app.use('/api/carts', cartsRouter)
+app.use('/api/carts', cartsAPIRouter)
 app.use('/api/sessions', sessionsRouter)
 
 // Rutes: HTML

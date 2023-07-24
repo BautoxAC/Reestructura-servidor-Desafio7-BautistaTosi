@@ -5,7 +5,7 @@ import { MessageManagerDB } from './DAO/DB/MessageManagerDB.js'
 import { ProductManagerDB } from './DAO/DB/ProductManagerDB.js'
 import { cartModel } from './DAO/models/carts.model.js'
 import { userModel } from './DAO/models/users.model.js'
-import 'dotenv/config'
+import config from './config/env.config.js'
 // ----------------DIRNAME------------
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -14,7 +14,6 @@ import { connect } from 'mongoose'
 
 // ----------------- BCRYPT ---------------------
 import bcrypt from 'bcrypt'
-
 // ------------MULTER------------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -79,9 +78,10 @@ export function connectSocketServer (httpServer) {
   })
 }
 // ------------ MONGO DB ------------------
+const { mongoUrl } = config
 export async function connectMongo () {
   try {
-    await connect(`${process.env.MONGO_LINK}`)
+    await connect(`${mongoUrl}`)
   } catch (e) {
     console.log(e)
     throw new Error('can not connect to the db')
