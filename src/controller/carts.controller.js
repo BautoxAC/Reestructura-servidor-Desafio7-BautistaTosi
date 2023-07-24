@@ -1,4 +1,4 @@
-import { CartManagerDB } from "../services/carts.service"
+import { CartManagerDB } from '../services/carts.service.js'
 import { newMessage } from '../utils.js'
 const list = new CartManagerDB()
 export class CartsController {
