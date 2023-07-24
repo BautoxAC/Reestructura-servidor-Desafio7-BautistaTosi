@@ -1,6 +1,6 @@
 import passport from 'passport'
 import express from 'express'
-import { SessionsController } from '../controller/sessions.controller'
+import { SessionsController } from '../controller/sessions.controller.js'
 const SessionsControllerRouting = new SessionsController()
 export const sessionsRouter = express.Router()
 sessionsRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }))

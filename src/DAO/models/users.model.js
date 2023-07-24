@@ -28,7 +28,11 @@ const schema = new Schema({
     required: true,
     default: 'user'
   },
-  cart: { type: {}, default: {}, unique: true }
+  cart: {
+    type: Schema.Types.ObjectId,
+    unique: true,
+    ref: 'carts'
+  }
 })
 
 export const userModel = model('users', schema)
