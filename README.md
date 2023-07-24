@@ -2,6 +2,11 @@
 
 Este proyecto es un API básica que sigue las consignas de la segunda preEntrega del proyecto final de CoderHouse y la segunda practica integradora funcionando con MongoDB y hay views hechas con handlebars. Ahora tiene un sistema de autenticacion basico con passport local y passport-github en la vista /auth/register y /auth/login
 
+### `npm start`
+
+Inicia el Servidor en [http://localhost:8080]
+
+
 ### Link de postman (donde estan se encuentran los endpoints del API)
 
 [https://documenter.getpostman.com/view/27127572/2s93eYTrfS]
@@ -33,8 +38,4 @@ Documentación de las Dependecias:
 8. express-session: [https://github.com/expressjs/session]
 9. connect-mongo: [https://www.npmjs.com/package/connect-mongo]
 10. passport[https://www.passportjs.org]
-
-### `npm start`
-
-Inicia el Servidor en [http://localhost:8080]
 
